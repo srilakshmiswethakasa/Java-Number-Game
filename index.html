@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Number Game</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+    text-align:center;
+    padding:30px;
+}
+
+.container{
+    background:white;
+    max-width:500px;
+    margin:auto;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+h1{
+    color:#0077b6;
+}
+
+input{
+    padding:10px;
+    width:200px;
+}
+
+button{
+    padding:10px 15px;
+    margin:5px;
+    background:#0077b6;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+#message{
+    font-size:18px;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+#score{
+    color:green;
+    font-weight:bold;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>🎯 Number Guessing Game</h1>
+
+<p>Guess a number between 1 and 100</p>
+
+<input type="number" id="guess" placeholder="Enter Number">
+
+<button onclick="checkGuess()">Guess</button>
+
+<p id="message"></p>
+
+<p>Attempts Left: <span id="attempts">10</span></p>
+
+<p id="score">Score: 0</p>
+
+<button onclick="newRound()">Play Again</button>
+
+</div>
+
+<script>
+
+let randomNumber = Math.floor(Math.random()*100)+1;
+let attemptsLeft = 10;
+let score = 0;
+
+function checkGuess(){
+
+let userGuess =
+parseInt(document.getElementById("guess").value);
+
+if(isNaN(userGuess)){
+document.getElementById("message").innerHTML =
+"Please enter a number!";
+return;
+}
+
+attemptsLeft--;
+
+document.getElementById("attempts").innerHTML =
+attemptsLeft;
+
+if(userGuess === randomNumber){
+
+document.getElementById("message").innerHTML =
+"🎉 Correct Guess!";
+
+score += attemptsLeft + 1;
+
+document.getElementById("score").innerHTML =
+"Score: " + score;
+
+}
+
+else if(userGuess > randomNumber){
+
+document.getElementById("message").innerHTML =
+"📈 Too High!";
+
+}
+
+else{
+
+document.getElementById("message").innerHTML =
+"📉 Too Low!";
+
+}
+
+if(attemptsLeft === 0 &&
+userGuess !== randomNumber){
+
+document.getElementById("message").innerHTML =
+"❌ Game Over! Number was " + randomNumber;
+
+}
+
+}
+
+function newRound(){
+
+randomNumber =
+Math.floor(Math.random()*100)+1;
+
+attemptsLeft = 10;
+
+document.getElementById("attempts").innerHTML =
+attemptsLeft;
+
+document.getElementById("message").innerHTML =
+"";
+
+document.getElementById("guess").value = "";
+
+}
+
+</script>
+
+</body>
+</html>
